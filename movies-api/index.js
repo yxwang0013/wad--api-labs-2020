@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies';
 import bodyParser from 'body-parser';
+import usersRouter from './api/users';
 import './db';
 
 dotenv.config();
@@ -23,7 +24,7 @@ if (process.env.SEED_DB) {
 const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-
+app.use('/api/users', usersRouter);
 
 app.use(express.static('public'));
 app.use('/api/movies', moviesRouter);
