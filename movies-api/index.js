@@ -1,9 +1,10 @@
 import {loadUsers} from './seedData';
 import dotenv from 'dotenv';
 import express from 'express';
-import moviesRouter from './api/movies';
 import bodyParser from 'body-parser';
+import moviesRouter from './api/movies';
 import usersRouter from './api/users';
+import genresRouter from './api/genres';
 import './db';
 
 dotenv.config();
@@ -24,10 +25,10 @@ if (process.env.SEED_DB) {
 const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use('/api/users', usersRouter);
-
 app.use(express.static('public'));
 app.use('/api/movies', moviesRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/genres', genresRouter);
 app.use(errHandler);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
