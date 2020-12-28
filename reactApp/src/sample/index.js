@@ -7,11 +7,13 @@ import SignUpPage from "./signUpPage";
 import PrivateRoute from "./privateRoute";
 import AuthHeader from "./authHeader";
 import AuthProvider from "./authContext";
+import MovieProvider from "./moviesContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
+
         <AuthHeader />
         <ul>
           <li>
@@ -27,15 +29,19 @@ const App = () => {
             <Link to="/profile">Profile</Link>
           </li>
         </ul>
-        <Switch>
-          <Route path="/public" component={PublicPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signup" component={SignUpPage} />,
-          <Route exact path="/" component={HomePage} />
-          <PrivateRoute path="/movies" component={Movies} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <Redirect from="*" to="/" />
-        </Switch>
+
+        <MovieProvider>
+          <Switch>
+            <Route path="/public" component={PublicPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={SignUpPage} />,
+            <Route exact path="/" component={HomePage} />
+            <PrivateRoute path="/movies" component={Movies} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </MovieProvider>
+
       </AuthProvider>
     </BrowserRouter>
   );
